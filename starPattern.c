@@ -2,7 +2,7 @@
 
 int main(){
 	//Making a star patter having four rows
-	//	 *
+	//   *
 	//  ***
 	// *****
 	//*******
