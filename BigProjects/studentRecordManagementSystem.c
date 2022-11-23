@@ -11,6 +11,25 @@ void gotoxy(int x, int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),CRD);
 }
 
+// Function for adding an Entry to the db.txt file
+void add(FILE *fp){
+	
+}
+
+// Function for Searching an Entry from the db.txt file
+void search(FILE *fp){
+	
+}
+
+// Function for changing an existing Entry to the db.txt file
+void change(FILE *fp){
+	
+}
+
+// Function for removing an Entry to the db.txt file
+void remove(FILE *fp){
+	
+}
 
 // Creating a structure of students
 typedef struct student {
@@ -21,16 +40,40 @@ typedef struct student {
 
 
 int main() {
-	SetConsoleTitle("Student Record Management");
-	FILE *fp;
-	char string[20];
-	int i;
+	// Giving options to the user
+	printf("1. Add an entry\n");
+	printf("2. Search an entry\n");
+	printf("3. Change an existing entry\n");
+	printf("4. Remove an entry\n");
 	
-		
-		fflush(stdin);
-		fgets(string,10,stdin);
-		printf("%s\n",string);
-//		fflush(stdin);
+	
+	
+	//Taking input from user
+	int options = 0;
+	printf("\nEnter your desired task: ");
+	scanf("%d", &options);
+	
+	// Openning db.txt file
+	FILE *db;
+	db = fopen("db.txt","r+");
 
+	// Switch statement is used to identify which task needs to be done
+	switch(options){
+		case 1: add(db);
+				break;
+				
+		case 2: search(db);
+				break;
+				
+		case 3: change(db);
+				break;
+				
+		case 4: remove(db);
+				break;
+				
+		default: printf("The specified key is not recognized. Please input a valid option\n");
+	}
+	
+	
 	return 0;
 }
