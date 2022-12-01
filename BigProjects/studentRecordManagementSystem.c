@@ -4,6 +4,14 @@
 /* We have to make a student management system from where we can handle students records like(Student roll numbers, Name, Subjects)
    We also have to make a database file where we can perform some operations like add, search, change and remove entries*/
 
+// Creating a structure of students
+typedef struct student {
+	int studentRollNo;
+	char studentName[30];
+	float CGPA;
+} std;
+
+
 void gotoxy(int x, int y){
 	COORD CRD;
 	CRD.X = x;
@@ -13,7 +21,22 @@ void gotoxy(int x, int y){
 
 // Function for adding an Entry to the db.txt file
 void add(FILE *fp){
+	system("cls");
+	printf("-------------------- Now adding a student in the database ------------------------\n\n");
+	std s;
 	
+	printf("Enter the Roll No: ");
+	scanf("%d", &s.studentRollNo);
+	
+	printf("\nEnter Student name: ");
+	fflush(stdin);
+	fgets(s.studentName, 25, stdin);
+	
+	printf("\nEnter the CGPA: ");
+	scanf("%f", &s.CGPA);
+	
+	fseek(fp, 0, SEEK_END);
+	fwrite(&s, sizeof(s),1,fp);
 }
 
 // Function for Searching an Entry from the db.txt file
@@ -27,16 +50,12 @@ void change(FILE *fp){
 }
 
 // Function for removing an Entry to the db.txt file
-void remove(FILE *fp){
+void del(FILE *fp){
 	
 }
 
-// Creating a structure of students
-typedef struct student {
-	int studentRollNo;
-	char studentName[30];
-	int CGPA;
-} std;
+
+
 
 
 int main() {
@@ -68,10 +87,20 @@ int main() {
 		case 3: change(db);
 				break;
 				
-		case 4: remove(db);
+		case 4: del(db);
 				break;
 				
 		default: printf("The specified key is not recognized. Please input a valid option\n");
+	}
+	
+	std s;
+	int siz = sizeof(s);
+	
+	rewind(db);
+	if(fread(&s,siz,1,db) == 1){
+		printf("The Roll No is: %d\n",s.studentRollNo);
+		printf("The Student name is: %s\n",s.studentName);
+		printf("The CGPA is: %f\n",s.CGPA);		
 	}
 	
 	
